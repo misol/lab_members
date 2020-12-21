@@ -14,35 +14,13 @@ class lab_membersAdminController extends maps
 	{
 	}
 
-	public function procLabMembersAdminCofig()
+	public function procLabMembersAdminConfig()
 	{
 		$oModuleController = getController('module');
 		$config = new stdClass();
 
-		$config->daum_local_api_key = trim(Context::get('daum_local_api_key'));
-		$config->map_api_key = trim(Context::get('map_api_key'));
-		$config->maps_api_type = '';
-
-		// API 종류 정하기 다음/네이버/구글
-		if(strlen($config->map_api_key) == 40)
-		{
-			$config->maps_api_type = 'daum'; /* Daum maps */
-		}
-		elseif(strlen($config->map_api_key) == 32)
-		{
-			$config->maps_api_type = 'naver'; /* NAVER maps */
-		}
-		elseif(strlen($config->map_api_key) == 64)
-		{
-			$config->maps_api_type = 'microsoft'; /* bing maps */
-		}
-		else
-		{
-			$config->maps_api_type = 'google'; /* Google maps */
-		}
-
-		$oModuleController->insertModuleConfig('maps', $config);
-		$this->setRedirectUrl(Context::get('error_return_url'));
+		$oModuleController->insertModuleConfig('lab_members', $config);
+		return;
 	}
 
 	/**
@@ -59,47 +37,74 @@ class lab_membersAdminController extends maps
 		$args->data_srl = intval(trim(Context::get('data_srl'))); // 정수형이 아닐 경우 제거
 		$args->member_srl = $logged_info->member_srl;
 		$args->name = htmlspecialchars(trim(Context::get('name')));
-		$args->content = htmlspecialchars(trim(Context::get('map_description')));
-		$args->ipaddress = $_SERVER['REMOTE_ADDR'];
-		$args->last_update = 
-
-
-		// 정수형이고, 값이 존재할 경우 실제 존재하는 지도인지 확인(업데이트 날짜가 존재하는지 확인)
-		if($args->maps_srl > 0)
-		{
-			$output = executeQuery('maps.getMapUpdate', $args);
+		$args->content = json_decode(Context::get('content'));
+		$args->lang_code = Context::getLangType();
+		
+		if(is_array ( $args->content ) {
+			$args->content = array_map ( "htmlspecialchars", $args->content )
+		} else {
+			$args->content = array();
 		}
 
-		// 존재하는 지도일 경우, 업데이트 진행
-		if($output->data->update)
+		// 정수형이고, 값이 존재할 경우, 기록이 있는지 확인
+		if($args->data_srl > 0)
 		{
-			$output = executeQuery('maps.updateMapsContent', $args);
-		}
-		else // 존재하지 않는 지도일 경우 지도 생성. 시퀀스 번호 생성, 지도 입력
-		{
-			$args->maps_srl = getNextSequence();//다음 시쿼스 번호
-			$output = executeQuery('maps.insertMapsContent', $args);
+			$output = executeQuery('lab_members.getLabMemberContent', $args);
 		}
 
-		$this->add("maps_srl", $args->maps_srl);
+		// 존재하는 경우, 업데이트 진행
+		if($output->data->regdate)
+		{
+			$oDB = DB::getInstance();
+			$oDB->begin();
+			
+			$output = executeQuery('lab_members.updateLabMemberContent', $args);
+			if(!$output->toBool()) {
+				$oDB->rollback();
+				throw new Rhymix\Framework\Exception('fail_to_update');
+			}
+			else {
+				$oDB->commit();
+			}
+			$this->add("data_status", 'update');
+		}
+		else // 존재하지 않는 지도일 경우 항목 생성. 시퀀스 번호 생성, 항목 입력
+		{
+			$oDB = DB::getInstance();
+			$oDB->begin();
+			
+			$args->data_srl = getNextSequence();//다음 시쿼스 번호
+			$output = executeQuery('lab_members.insertLabMemberContent', $args);
+			
+			if(!$output->toBool()) {
+				$oDB->rollback();
+				throw new Rhymix\Framework\Exception('fail_to_registed');
+			} else {
+				$oDB->commit();
+			}
+			$this->add("data_status", 'insert');
+		}
+
+		$this->add("data_srl", $args->data_srl);
+		$this->add("name", $args->name);
 		return;
 	}
 
 	/**
-	 * @brief 지도 삭제
+	 * @brief 항목 삭제
 	 * @author MinSoo Kim (misol.kr@gmail.com)
-	 * @param int $maps_srl 삭제할 지도번호. 지도가 있는지 확인 후 삭제. 지도가 없을 경우 아무 변화도 일어나지 않는다.
+	 * @param int $data_srl 삭제할 정보 번호. 항목이 있는지 확인 후 삭제. 항목이 없을 경우 아무 변화도 일어나지 않는다.
 	 */
 	public function procLabMembersAdminDelete()
 	{
 		$args = new stdClass();
-		$args->maps_srl = intval(trim(Context::get('data_srl')));
+		$args->data_srl = intval(trim(Context::get('data_srl')));
 
 		// 삭제 진행
 		if($args->data_srl > 0) {
 			$oDB = DB::getInstance();
 			$oDB->begin();
-			$output = executeQuery('maps.deleteMapContent', $args);
+			$output = executeQuery('lab_members.deleteLabMemberContent', $args);
 			if(!$output->toBool()) {
 				$oDB->rollback();
 				throw new Rhymix\Framework\Exception('fail_to_delete');
@@ -107,13 +112,17 @@ class lab_membersAdminController extends maps
 			else {
 				$oDB->commit();
 			}
-		}
-		else {
+		} else {
 			throw new Rhymix\Framework\Exception('msg_invalid_request');
 		}
 		return;
 	}
 
+	/**
+	 * @brief 카테고리 생성
+	**/
+	
+	
 	/**
 	 * @brief 테이블 삭제
 	 * @author MinSoo Kim (misol.kr@gmail.com)
