@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">구성원</title>
+	<title xml:lang="en">Lab members</title>
+	<description xml:lang="ko">연구실 구성원을 표시하기 위한 모듈. 수동으로 페이지 만들다가 힘들어서 만든 모듈.</description>
+	<description xml:lang="en">Module to display lab member photo, name, and other description.</description>
+	<version>0.1</version>
+	<date>2020-12-21</date>
+	<category>service</category>
+
+	<license link="https://raw.githubusercontent.com/misol/lab_members/main/LICENSE">GNU General Public License v3.0</license>
+	<author email_address="misol@snu.ac.kr" link="https://github.com/misol">
+		<name xml:lang="ko">김민수</name>
+		<name xml:lang="en">Min-Soo Kim</name>
+	</author>
+</module>

@@ -1,0 +1,19 @@
+<table name="lab_members_photos">
+	<column name="attached_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	
+	<column name="data_srl" type="number" size="11" notnull="notnull" index="idx_data_srl" />
+	
+	<column name="legend" var="legend" notnull="notnull" type="varchar" size="250" />
+	<column name="content" type="bigtext" notnull="notnull" />
+	
+	<column name="regdate" type="date" index="idx_regdate" />
+	<column name="last_update" type="date" index="idx_last_update" />
+	<column name="last_updater" type="varchar" size="80" />
+	
+	<column name="member_srl" type="number" size="11" />
+	<column name="ipaddress" type="varchar" size="128" notnull="notnull" index="idx_ipaddress" />
+	<column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order" />
+	<column name="update_order" type="number" size="11" notnull="notnull" index="idx_update_order" />
+	<column name="status" type="varchar" size="20" default="PUBLIC" />
+	<column name="comment_status" type="varchar" size="20" default="ALLOW" />
+</table>

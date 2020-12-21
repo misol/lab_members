@@ -1,0 +1,9 @@
+<query id="deleteLabMemberPhotos" action="delete" priority="LOW">
+	<tables>
+		<table name="lab_members_photos" />
+	</tables>
+	<columns />
+	<conditions>
+		<condition operation="equal" column="attached_srl" var="attached_srl" />
+	</conditions>
+</query>
