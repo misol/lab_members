@@ -9,6 +9,14 @@
 class lab_members extends ModuleObject
 {
 
+
+	/**
+	 * @brief Default editor config
+	 */
+	public static $default_editor_config = array(
+		'editor_skin' => 'default',
+	);
+	
 	/**
 	 * constructor
 	 *

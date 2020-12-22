@@ -18,21 +18,30 @@ class lab_membersAdminModel extends lab_members
 	/**
 	 * @brief Initialize editor form of lab_members admin page
 	**/
-	public static function getEditor($data_srl = null, $option = new stdClass)
+	public static function getEditor($data_srl = 0, $option = new stdClass)
 	{
+		$data_srl = intval($data_srl);
+		
+		// Initialize options.
+		if (!is_object($option))
+		{
+			$option = new stdClass;
+		}
+		
 		// Load language files.
 		Context::loadLang('./modules/lab_members/lang');
 		Context::loadLang('./modules/editor/lang');
 		
 		// Set editor sequence and upload options.
-		if ($data_srl)
-		{
-			$option->editor_sequence = $data_srl;
-		}
-		else
+		if (!$data_srl)
 		{
 			$data_srl = getNextSequence();
-			$option->editor_sequence = $data_srl;
+		}
+		
+		
+		if (!$option->editor_skin || !file_exists(RX_BASEDIR . 'modules/lab_members/skins/' . $option->editor_skin . '/editor.html'))
+		{
+			$option->editor_skin = self::$default_editor_config['editor_skin'];
 		}
 		
 		// Get file upload limits
@@ -67,10 +76,12 @@ class lab_membersAdminModel extends lab_members
 		$oFileController = getController('file');
 		$oFileController->setUploadInfo($data_srl, $data_srl);
 		// Check if the file already exists
-		if($data_srl) $files_count = FileModel::getFilesCount($data_srl);
+		$files_count = FileModel::getFilesCount($data_srl);
 		
 		Context::set('files_count', (int)$files_count);
 		
+		$tpl_path = RX_BASEDIR . 'modules/lab_members/skins/' . $option->editor_skin . '/';
+		Context::set('lab_members_editor_path', $tpl_path);
 		$oTemplate = TemplateHandler::getInstance();
 		return $oTemplate->compile($tpl_path, 'editor.html');
 	}
