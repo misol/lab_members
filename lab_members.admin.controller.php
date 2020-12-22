@@ -1,11 +1,11 @@
 <?php
-/* Copyright (C) Kim, MinSoo <misol.kr@gmail.com> */
+/* Copyright (C) Kim, Min-Soo <misol.kr@gmail.com> */
 /**
  * @file	lab_members.admin.controller.php
- * @author	MinSoo Kim (misol.kr@gmail.com)
+ * @author	Min-Soo Kim (misol.kr@gmail.com)
  * @brief	admin controller class of the lab_members module
  */
-class lab_membersAdminController extends maps
+class lab_membersAdminController extends lab_members
 {
 	/**
 	 * @brief Initialization
@@ -25,7 +25,7 @@ class lab_membersAdminController extends maps
 
 	/**
 	 * @brief 입력 또는 수정
-	 * @author MinSoo Kim (misol.kr@gmail.com)
+	 * @author Min-Sooo Kim (misol.kr@gmail.com)
 	 * @param string $data_srl 입력/수정할 지도 번호이다. 숫자가 아닐 경우 새로운 항목으로 입력, 숫자가 입력될 경우 기존 항목인지 확인 후 수정한다. 숫자인데 기존 항목이 아닐 경우 새로운 항목으로 입력.
 	 * @param string $name, $content 입력할 항목 정보를 포함한다.
 	 */
@@ -92,7 +92,7 @@ class lab_membersAdminController extends maps
 
 	/**
 	 * @brief 항목 삭제
-	 * @author MinSoo Kim (misol.kr@gmail.com)
+	 * @author Min-Sooo Kim (misol.kr@gmail.com)
 	 * @param int $data_srl 삭제할 정보 번호. 항목이 있는지 확인 후 삭제. 항목이 없을 경우 아무 변화도 일어나지 않는다.
 	 */
 	public function procLabMembersAdminDelete()
@@ -123,14 +123,24 @@ class lab_membersAdminController extends maps
 	**/
 	
 	
+
+
+	function procLabMembersAdminLoadEditor()
+	{
+		$data_srl = Context::get('data_srl');
+		
+		
+	}
+
 	/**
 	 * @brief 테이블 삭제
-	 * @author MinSoo Kim (misol.kr@gmail.com)
+	 * @author Min-Sooo Kim (misol.kr@gmail.com)
 	 * @see 모듈에 저장된 자료를 깔끔하게 삭제하고 싶을때. 삭제 전 진심인지 의사를 물어봄.(복구 불가)
 	 */
 	public function procLapMembersAdminTableDrop()
 	{
 		DB::dropTable('lap_members');
+		DB::dropTable('lab_members_photos');
 	}
 }
 /* End of file maps.admin.controller.php */
