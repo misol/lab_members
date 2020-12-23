@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<grants />
+	<permissions />
+	<actions>
+		<action name="dispLab_membersAdminIndex" type="view" admin_index="true" menu_name="lab_members_module" menu_index="true" />
+		<action name="dispLab_membersAdminInsert" type="view" />
+		
+		<action name="procLabMembersAdminInsert" type="controller" method="GET|POST" />
+	</actions>
+	<menus>
+		<menu name="lab_members_module">
+			<title xml:lang="en">Lab Members</title>
+			<title xml:lang="ko">연구실 구성원 모듈</title>
+		</menu>
+	</menus>
+</module>

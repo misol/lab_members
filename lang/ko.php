@@ -18,4 +18,12 @@ $lang->academic_degrees = array(
 	'doctor_of_pharmacy' => '약사 (Pharm.D.)',
 	'doctor_of_jurisprudence' => '법학전문석사 (J.D.)',
 );
+
+$lang->name = '이름';
+$lang->admission_date = '입학';
+$lang->graduation_date = '졸업';
+
+$lang->name_content = '이름 + 내용';
+$lang->admission_year = '입학년도';
+$lang->graduation_year = '졸업년도';
 ?>

@@ -11,7 +11,7 @@ class lab_membersAdminView extends lab_members
 	/**
 	 * @brief Initialization
 	 */
-	function init()
+	public function init()
 	{
 		// check module_srl is existed or not
 		$module_srl = Context::get('module_srl');
@@ -37,10 +37,16 @@ class lab_membersAdminView extends lab_members
 		$security->encodeHTML('module_category..');
 		
 		// install order (sorting) options
+		$order_target = array();
 		foreach($this->order_target as $key) $order_target[$key] = lang($key);
-		$order_target['list_order'] = lang('document_srl');
 		$order_target['update_order'] = lang('last_update');
 		Context::set('order_target', $order_target);
+		
+		// install order (sorting) options
+		$search_option = array();
+		foreach($this->search_option as $key) $search_option[$key] = lang($key);
+		Context::set('search_option', $search_option);
+		
 	}
 	
 	
@@ -48,7 +54,7 @@ class lab_membersAdminView extends lab_members
 	 * @brief Administrator Setting page
 	 * Settings to enable/disable editor component and other features
 	 */
-	function dispLab_membersAdminIndex()
+	public function dispLab_membersAdminIndex()
 	{
 		$oLabMembersAdminModel = getAdminModel('lab_members');
 		// Options to get a list
@@ -59,11 +65,15 @@ class lab_membersAdminView extends lab_members
 		$string_parameters = array('name', 'status');
 		
 		foreach ($int_parameters as $parameter) {
-			Context::get($parameter) ? $args->{$parameter} = intval(Context::get($parameter));
+			if(Context::get($parameter)) {
+				$args->{$parameter} = intval(Context::get($parameter));
+			}
 		}
 		
 		foreach ($string_parameters as $parameter) {
-			Context::get($parameter) ? $args->{$parameter} = strval(Context::get($parameter));
+			if(Context::get($parameter)) {
+				$args->{$parameter} = strval(Context::get($parameter));
+			}
 		}
 		
 		$option->args = $args;
@@ -84,7 +94,12 @@ class lab_membersAdminView extends lab_members
 		$security->encodeHTML('lab_members_list..name','lab_members_list..content', 'lab_members_list..last_updater', 'lab_members_list..last_updater');
 
 		// 템플릿 파일 지정
+		$this->setTemplatePath($this->module_path.'tpl');
 		$this->setTemplateFile('index');
+	}
+	
+	public function dispLab_membersAdminInsert()
+	{
 	}
 }
 ?>

@@ -17,4 +17,12 @@ $lang->academic_degrees = array(
 	'doctor_of_pharmacy' => 'Doctor of Pharmacy',
 	'doctor_of_jurisprudence' => 'Doctor of Jurisprudence',
 );
+
+$lang->name = 'Name';
+$lang->admission_date = 'Admission';
+$lang->graduation_date = 'Graduation';
+
+$lang->name_content = 'Name + Contents';
+$lang->admission_year = 'Admission';
+$lang->graduation_year = 'Graduation';
 ?>

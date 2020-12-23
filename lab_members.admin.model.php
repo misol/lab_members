@@ -18,20 +18,26 @@ class lab_membersAdminModel extends lab_members
 	/**
 	 * @brief Initialize editor form of lab_members admin page
 	**/
-	public function getLabMemberList($option = new stdClass)
+	public function getLabMemberList($option = null)
 	{
 		$args = new stdClass();
 		$columnList = array();
+		
+		if( $option === null ) $option = new stdClass();
 		
 		$int_parameters = array('category_srl', 'data_srl', 'list_count', 'page_count', 'page');
 		$string_parameters = array('name', 'status');
 		
 		foreach ($int_parameters as $parameter) {
-			$option->args->{$parameter} ? $args->{$parameter} = intval($option->args->{$parameter});
+			if($option->args->{$parameter}) {
+				$args->{$parameter} = intval($option->args->{$parameter});
+			}
 		}
 		
 		foreach ($string_parameters as $parameter) {
-			$option->args->{$parameter} ? $args->{$parameter} = strval($option->args->{$parameter});
+			if($option->args->{$parameter}) {
+				$args->{$parameter} = strval($option->args->{$parameter});
+			}
 		}
 		
 		if (isset($option->columnList) && is_array($option->columnList)) {
@@ -47,8 +53,10 @@ class lab_membersAdminModel extends lab_members
 	/**
 	 * @brief Initialize editor form of lab_members admin page
 	**/
-	public function getEditor($data_srl = 0, $option = new stdClass)
+	public function getEditor($data_srl = 0, $option = null)
 	{
+		if( $option === null ) $option = new stdClass();
+		
 		$data_srl = intval($data_srl);
 		$oLabMembersModel = getModel('lab_members');
 		
