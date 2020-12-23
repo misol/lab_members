@@ -1,0 +1,36 @@
+<query id="getLabMemberList" action="select">
+	<tables>
+		<table name="lab_members" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+        <group pipe="and">
+            <condition operation="more" column="graduation_date" var="start_date_graduation" pipe="and" />
+            <condition operation="less" column="graduation_date" var="end_date_graduation" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="more" column="admission_date" var="start_date_admission" pipe="and" />
+            <condition operation="less" column="admission_date" var="end_date_admission" pipe="and" />
+        </group>
+		<condition operation="equal" column="category_srl" var="category_srl" pipe="and" />
+		<condition operation="equal" column="data_srl" var="data_srl" pipe="and" />
+		<condition operation="in" column="name" var="name" pipe="and" />
+		<condition operation="equal" column="status" var="statusList" pipe="and" />
+        <group pipe="and">
+            <condition operation="search" column="name" var="s_name" />
+            <condition operation="search" column="content" var="s_content" pipe="or" />
+            <condition operation="equal" column="member_srl" var="s_member_srl" pipe="or" />
+            <condition operation="like_prefix" column="regdate" var="s_regdate" pipe="or" />
+            <condition operation="like_prefix" column="last_update" var="s_last_update" pipe="or" />
+            <condition operation="like_prefix" column="ipaddress" var="s_ipaddress" pipe="or" />
+        </group>
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="list_order" order="order_type" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

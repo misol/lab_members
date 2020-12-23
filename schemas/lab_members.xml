@@ -2,6 +2,10 @@
 	<column name="data_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
 	<column name="category_srl" type="number" size="11" default="0" notnull="notnull" index="idx_category_srl" />
 	<column name="lang_code" type="varchar" size="32" />
+	
+	<column name="admission_date" type="date" index="idx_ent_date" notnull="notnull" />
+	<column name="graduation_date" type="date" index="idx_ent_date" />
+	
 	<column name="name" type="varchar" size="250" />
 	<column name="content" type="bigtext" notnull="notnull" />
 	<column name="attached_srls" type="bigtext" notnull="notnull" />
