@@ -26,7 +26,7 @@ class lab_membersAdminModel extends lab_members
 		if( $option === null ) $option = new stdClass();
 		
 		$int_parameters = array('category_srl', 'data_srl', 'list_count', 'page_count', 'page');
-		$string_parameters = array('name', 'status');
+		$string_parameters = array('name', 'status', 'search_keyword', 'search_target');
 		
 		foreach ($int_parameters as $parameter) {
 			if($option->args->{$parameter}) {

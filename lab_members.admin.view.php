@@ -62,7 +62,7 @@ class lab_membersAdminView extends lab_members
 		$args = new stdClass();
 		
 		$int_parameters = array('category_srl', 'data_srl', 'list_count', 'page_count', 'page');
-		$string_parameters = array('name', 'status');
+		$string_parameters = array('name', 'status', 'search_keyword', 'search_target');
 		
 		foreach ($int_parameters as $parameter) {
 			if(Context::get($parameter)) {
@@ -100,6 +100,10 @@ class lab_membersAdminView extends lab_members
 	
 	public function dispLab_membersAdminInsert()
 	{
+
+		// 템플릿 파일 지정
+		$this->setTemplatePath($this->module_path.'tpl');
+		$this->setTemplateFile('write_form');
 	}
 }
 ?>

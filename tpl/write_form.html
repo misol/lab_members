@@ -1,0 +1,15 @@
+<load target="js/lab_members_admin.js" />
+<include target="header.html" />
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/lab_members/tpl/index/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<form id="fo_list" action="./" method="get">
+	<input type="hidden" name="module" value="lab_members" />
+	<input type="hidden" name="act" value="procLabMembersAdminInsert" />
+	<input type="hidden" name="type" value="" />
+	<input type="hidden" name="module_srl" value="" />
+	<input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin', 'act', 'dispLab_membersAdminIndex')}" />
+	<input type="hidden" name="xe_validator_id" value="modules/lab_members/tpl/index/1" />
+	<input type="text" name="name" value="" />
+	<textarea name="content"></textarea>
+</form>

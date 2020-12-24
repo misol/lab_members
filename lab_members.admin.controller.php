@@ -118,6 +118,40 @@ class lab_membersAdminController extends lab_members
 		return;
 	}
 
+
+	/**
+	 * Return LabMembers List for exec_xml
+	 * @return void|Object
+	 */
+	function procLabMembersAdminSelect()
+	{
+		if(!Context::get('is_logged'))
+		{
+			throw new Rhymix\Framework\Exceptions\NotPermitted;
+		}
+		
+		$data_srls = Context::get('data_srls');
+		print_r($data_srls);
+		exit();
+		
+		if(is_array($data_srls)) $data_srls = explode(',', $data_srls);
+
+		if(count($data_srls) > 0)
+		{
+			$columnList = array('document_srl', 'title', 'nick_name', 'status');
+			$documentList = DocumentModel::getDocuments($documentSrlList, $this->grant->is_admin, false, $columnList);
+		}
+		else
+		{
+			$documentList = array();
+			$this->setMessage(lang('no_documents'));
+		}
+		$oSecurity = new Security($documentList);
+		$oSecurity->encodeHTML('..variables.');
+		$this->add('document_list', array_values($documentList));
+	}
+
+
 	/**
 	 * @brief 카테고리 생성
 	**/

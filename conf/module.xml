@@ -6,7 +6,7 @@
 		<action name="dispLab_membersAdminIndex" type="view" admin_index="true" menu_name="lab_members_module" menu_index="true" />
 		<action name="dispLab_membersAdminInsert" type="view" />
 		
-		<action name="procLabMembersAdminInsert" type="controller" method="GET|POST" />
+		<action name="procLabMembersAdminInsert" type="controller" method="POST" />
 	</actions>
 	<menus>
 		<menu name="lab_members_module">

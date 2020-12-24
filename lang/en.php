@@ -1,5 +1,9 @@
 <?php
+$lang->lab_members_module = 'Lab Members module';
+
 $lang->academic_degrees = array(
+	'professor' => 'Professor',
+	
 	'post_doctoral_researcher' => 'Postdoctoral researcher',
 	
 	'doctor_of_philosophy' => 'Doctor of Philosophy',
@@ -19,10 +23,21 @@ $lang->academic_degrees = array(
 );
 
 $lang->name = 'Name';
+$lang->photo = 'Photo';
 $lang->admission_date = 'Admission';
 $lang->graduation_date = 'Graduation';
 
 $lang->name_content = 'Name + Contents';
 $lang->admission_year = 'Admission';
 $lang->graduation_year = 'Graduation';
+
+$lang->member_search_target_list = array(
+	'name_content' => $lang->name_content,
+	'name' => $lang->name,
+	'admission_year' => $lang->admission_year,
+	'graduation_year' => $lang->graduation_year
+);
+$lang->lab_members_manager = 'Module Mamager';
+
+$lang->msg_not_selected_lab_members = 'There is no selected member.';
 ?>

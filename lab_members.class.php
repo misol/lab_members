@@ -57,6 +57,11 @@ class lab_members extends ModuleObject
 
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
+		
+		$oLabMemberAdminController = getAdminController('lab_members');
+		
+		// 데이터도 삭제
+		// $oLabMemberAdminController->procLapMembersAdminTableDrop();
 
 		return new BaseObject();
 	}
