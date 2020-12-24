@@ -41,4 +41,6 @@ $lang->member_search_target_list = array(
 $lang->lab_members_manager = '연구실 구성원 모듈 관리자';
 
 $lang->msg_not_selected_lab_members = '선택된 구성원이 없습니다.';
+
+$lang->cmd_lab_members_add = '연구실 구성원 추가';
 ?>

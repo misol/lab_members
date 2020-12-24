@@ -40,4 +40,5 @@ $lang->member_search_target_list = array(
 $lang->lab_members_manager = 'Module Mamager';
 
 $lang->msg_not_selected_lab_members = 'There is no selected member.';
+$lang->cmd_lab_members_add = 'Add a lab member';
 ?>

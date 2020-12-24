@@ -3,13 +3,27 @@
 <div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/lab_members/tpl/index/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<form id="fo_list" action="./" method="get">
+<form id="fo_list" action="./" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="module" value="lab_members" />
 	<input type="hidden" name="act" value="procLabMembersAdminInsert" />
 	<input type="hidden" name="type" value="" />
 	<input type="hidden" name="module_srl" value="" />
+	<input type="hidden" name="data_srl" value="" />
 	<input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin', 'act', 'dispLab_membersAdminIndex')}" />
 	<input type="hidden" name="xe_validator_id" value="modules/lab_members/tpl/index/1" />
-	<input type="text" name="name" value="" />
-	<textarea name="content"></textarea>
+	
+	<div class="x_control-group">
+		<label for="image_uploads">{lang('photo')}</label>
+		<input type="file" id="image_uploads" name="image_uploads" accept=".png, .jpg, .jpeg" />
+	</div>
+	
+	<div class="x_control-group">
+		<label for="name">{lang('name')}</label>
+		<input type="text" id="name" name="name" value="" />
+	</div>
+	
+	<div class="x_control-group">
+		<label for="content">{lang('content')}</label>
+		<textarea name="content"></textarea>
+	</div>
 </form>
