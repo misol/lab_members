@@ -41,7 +41,7 @@ class lab_membersAdminController extends lab_members
 		$args->lang_code = Context::getLangType();
 		
 		if(is_array ( $args->content ) {
-			$args->content = array_map ( "htmlspecialchars", $args->content )
+			$args->content = array_map ( "htmlspecialchars", $args->content );
 		} else {
 			$args->content = array();
 		}
